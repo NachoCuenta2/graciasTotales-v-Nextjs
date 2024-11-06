@@ -1,3 +1,4 @@
+import { VerificationLoginComponent } from "@/component/verificationLoginComponent";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -22,8 +23,10 @@ export default function RootLayout({
         Gracias Totales
       </h1>
       <div className="relative w-[90%] xxs:[80%] sm:[60%] sm:w-[500px] h-[400px] bg-customGray rounded-md flex justify-center">
+        <VerificationLoginComponent>
 
-        {children}
+          {children}
+        </VerificationLoginComponent>
 
       </div>
     </div>

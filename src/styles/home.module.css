@@ -1,0 +1,39 @@
+.navbar {
+
+    animation: enhance-header linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 200px;
+}
+
+.subtitle {
+    animation: enhance-subtitle linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 200px;
+    font-style: 24px;
+}
+
+@keyframes enhance-subtitle {
+    to {
+        font-style: 12px;
+    }
+}
+
+@keyframes enhance-header {
+    to {
+        background: rgba(51, 51, 51, 0.4);
+        backdrop-filter: blur(5px);
+    }
+}
+
+.GapDeBotonesDeDerecha {
+    gap: 5;
+    animation: enhance-gap linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 200px;
+}
+
+@keyframes enhance-gap {
+    to {
+        gap: 2
+    }
+}

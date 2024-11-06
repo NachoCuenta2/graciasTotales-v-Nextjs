@@ -1,0 +1,32 @@
+.sideBar {
+    left: -500px;
+    width: 500px;
+}
+
+
+@media (max-width: 500px) {
+    .sideBar {
+        width: 350px;
+        left: -350px;
+
+    }
+}
+
+@media (max-width: 350px) {
+    .sideBar {
+        width: 250px;
+        left: -250px;
+    }
+}
+
+@media (max-width: 250px) {
+    .sideBar {
+        width: 200px;
+        left: -200px;
+
+    }
+}
+
+.sideBarOpen {
+    left: 0px;
+}
