@@ -1,13 +1,106 @@
 .queryBox {
-    width: 200px;
+    width: 360px;
     height: 50px;
     background-color: black;
     transition: height 0.6s ease 0.4s, width 0.4s ease;
     align-items: center;
+
+}
+
+.stylesForWidth {
+    width: 360px;
+}
+
+.queryBox p {
+    font-size: 24px;
+}
+
+.queryBox h3 {
+    font-size: 28px;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: col;
+    justify-content: start;
+    gap: 15px;
 }
 
 .selected {
-    width: 300px;
-    height: 450px;
+    width: 700px;
+    height: 500px;
     align-items: start;
+    padding: 20px;
+}
+
+@media (max-width: 700px) {
+    .queryBox {
+        width: 80vw;
+
+    }
+
+    .stylesForWidth {
+        width: 80vw;
+    }
+
+    .queryBox p {
+        font-size: 16px;
+    }
+
+    .queryBox h3 {
+        font-size: 24px;
+    }
+
+    .selected {
+        width: 80vw;
+        padding: 15px;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .infoContainer {
+        flex-direction: column;
+        gap: 0;
+        margin-top: 10px;
+    }
+
+    .selected {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 350px) {
+    .queryBox {
+        width: 100vw;
+    }
+
+    .stylesForWidth {
+        width: 100vw;
+
+    }
+
+    .queryBox p {
+        font-size: 14px;
+    }
+
+    .selected {
+        width: 100vw;
+    }
+}
+
+@media (max-width: 250px) {
+
+
+    .queryBox p {
+        font-size: 12px;
+    }
+
+    .selected {
+        height: 575px;
+    }
+
+
+
+
 }

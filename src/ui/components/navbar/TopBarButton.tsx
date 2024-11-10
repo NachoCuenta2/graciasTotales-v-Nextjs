@@ -26,8 +26,8 @@ export const NavbarButton = ({ text, icon, style, colorDeFondo, url, isSessionOu
     return (
         <button onClick={sessionOut} className="w-full">
             <Link href={url}
-                className={`btn ${colorDeFondo ? 'bg-customGray' : 'bg-black'} hover:bg-customGray hover:border rounded-xl text-xs items-center flex justify-center
-                hover:text-white 
+                className={`btn hover:bg-black rounded-xl text-xs items-center flex justify-center
+                hover:text-white  transition-all
                 ${style && style}`}
                 style={{ height: ' 35px ' }}
             >

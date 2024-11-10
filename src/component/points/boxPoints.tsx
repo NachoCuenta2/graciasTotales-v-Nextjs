@@ -1,12 +1,26 @@
 "use client"
+import { GraciasTotalesFetcher } from '@/config/gracias-totales-fetcher';
+import { RedeemablePoints } from '@/core/uses-cases/points/redeemable-points';
+import { Punto } from '@/infraestructure/interfaces/points-response';
 import styles from '@/styles/generateCodes.module.css'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const BoxPoints = () => {
     const [qrMode, setqrMode] = useState(true)
     const [isAnimating, setIsAnimating] = useState(false);
     const [startAnimation, setstartAnimation] = useState(false)
+    const [RedeemablePointsList, setRedeemablePointsList] = useState<Punto[]>([])
+    useEffect(() => {
+        const actionAsync = async () => {
+            const resp = await RedeemablePoints(GraciasTotalesFetcher);
+            //TODO: AGREGAR UN SPINNER DE CARGA.
+            if (resp.ok) {
+                setRedeemablePointsList(resp.data as Punto[]);
+            }
+        }
+        actionAsync();
+    }, [isAnimating])
 
 
     const handleToggle = () => {
@@ -21,6 +35,8 @@ export const BoxPoints = () => {
             }, 100);
         }, 700);
     };
+
+
     return (
         <div className={`${styles.boxAdmin} animate__animated animate__fadeIn`}>
             <div className={`${styles.containerBoxAdmin} ${startAnimation && styles.collapsed}`} >
@@ -52,11 +68,11 @@ export const BoxPoints = () => {
                 ) : (
                     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'auto' }}>
                         <h1 style={{ marginBottom: '40px', position: 'absolute', top: '0px', marginTop: '20px', fontFamily: 'Rock Salt, cursive' }}>Ver puntos disponibles</h1>
-                        {/* {dataPuntos.puntos.map((d, index) => (
-                        <div style={{ marginTop: '10px' }} key={index}>
-                            <li>Cantidad: {d.cantidad}, Código: {d.codigo}</li>
-                        </div>
-                    ))} */}
+                        {RedeemablePointsList.map((d, index) => (
+                            <div className='w-full mt-5' key={index}>
+                                <li className='text-start'>Cantidad: {d.cantidad},  Código:<span className='font-bold underline'> {d.codigo} </span></li>
+                            </div>
+                        ))}
                         <p style={{ textDecoration: 'underline', cursor: 'pointer', position: 'absolute', bottom: '0px' }} onClick={handleToggle}>Generar Qr</p>
                     </div>
                 )}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { inter, monserrat } from "./config/fonts";
+import { inter, monserrat } from "../config/fonts";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
