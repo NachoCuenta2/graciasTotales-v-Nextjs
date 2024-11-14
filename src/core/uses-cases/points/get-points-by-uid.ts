@@ -1,6 +1,4 @@
-import { AxiosAdapter } from "@/config/adapter/http/axios.adapter";
 import { HttpAdapter } from "@/config/adapter/http/http.adapter";
-import { AllUserCanjes, Busqueda } from "@/infraestructure/interfaces/canjes-response";
 import { ApiResponse } from '../../../infraestructure/interfaces/api-response';
 import { PointsResponse } from "@/infraestructure/interfaces/points-response";
 

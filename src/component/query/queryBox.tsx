@@ -11,7 +11,7 @@ import { CanjeProductInQueryBox } from './canjeProductInQueryBox';
 
 
 export const QueryBox = () => {
-    const { GetUserPoints, UserPoints, getUserList, userList } = UseUser();
+    const { GetUserPoints, getUserList, userList, points } = UseUser();
     useEffect(() => {
         const init = async () => {
             await getUserList()
@@ -73,7 +73,7 @@ export const QueryBox = () => {
     // const resp = await startAlterCanjeWithId(id);
 
     return (
-        <div className={`flex flex-col  `}>
+        <div className={`flex flex-col text-black `}>
             <div className={`${styles.queryBox} ${open && styles.selected} overflow-y-auto rounded-md flex justify-start flex-col items-start transition-all animate__animated animate__fadeIn`}
             >
                 {!isUserSelected && <input
@@ -100,7 +100,7 @@ export const QueryBox = () => {
                             <div className={`${styles.infoContainer} `}>
 
                                 <p>Puntos del usuario:</p>
-                                <p>{UserPoints}</p>
+                                <p>{points}</p>
 
                             </div>
                             <div className={`${styles.infoContainer}`}>

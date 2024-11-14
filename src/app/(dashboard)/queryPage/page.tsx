@@ -1,5 +1,5 @@
 import { QueryBox } from '@/component/query/queryBox';
-import { UseUser } from '@/hooks/useUser';
+import { VerificationModeComponent } from '@/component/verificationModeComponent';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -11,7 +11,10 @@ export default async function template() {
 
     return (
         <div className="w-full min-h-screen flex justify-center items-center">
-            <QueryBox />
+            <VerificationModeComponent showAlert={true}>
+
+                <QueryBox />
+            </VerificationModeComponent>
         </div>
     );
 };

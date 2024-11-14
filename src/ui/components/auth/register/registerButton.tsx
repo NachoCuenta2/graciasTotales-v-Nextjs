@@ -1,7 +1,6 @@
 "use client"
 
 import { UseSession } from "@/hooks/useSession"
-import { LogInWithEmailPassword } from '../../../../firebase/providers';
 import { useUiAuth } from "@/hooks/use-ui-auth";
 import { redirect } from "next/navigation";
 

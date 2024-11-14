@@ -1,6 +1,5 @@
 import { VerificationLoginComponent } from "@/component/verificationLoginComponent";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Iniciar",
@@ -14,7 +13,8 @@ export default function RootLayout({
 
 
   return (
-    <div className="width-full flex flex-col justify-center items-center min-h-screen">
+    <div className="width-full flex flex-col justify-center items-center min-h-screen"
+    >
 
       <h1
         style={{ fontFamily: "Rock Salt, cursive", color: "#333" }}
@@ -22,7 +22,10 @@ export default function RootLayout({
       >
         Gracias Totales
       </h1>
-      <div className="relative w-[90%] xxs:[80%] sm:[60%] sm:w-[500px] h-[400px] bg-customGray rounded-md flex justify-center">
+      <div className="relative w-[90%] xxs:[80%] sm:[60%] sm:w-[500px] h-[400px] rounded-md flex justify-center"
+        style={{ background: 'rgba(51,51,51,0.4)', backdropFilter: 'blur(5px) ' }}
+
+      >
         <VerificationLoginComponent>
 
           {children}

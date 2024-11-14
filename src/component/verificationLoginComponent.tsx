@@ -2,7 +2,7 @@
 
 import { UseSession } from "@/hooks/useSession";
 import { redirect } from "next/navigation";
-import { ReactNode, useEffect } from "react"
+import { useEffect } from "react"
 
 interface Props {
     children: React.ReactNode
@@ -10,6 +10,7 @@ interface Props {
 export const VerificationLoginComponent = ({ children }: Props) => {
 
     //Este componente esta solo dedicada a ver el status de la sesión y en base a eso redireccionar.
+
     const { checkStatus, status } = UseSession();
     useEffect(() => {
         verStatus()

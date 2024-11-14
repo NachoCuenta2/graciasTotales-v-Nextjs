@@ -1,4 +1,3 @@
-import { UserEntities } from "@/core/entities/user-entities";
 import { create } from "zustand";
 
 export interface uiState {
@@ -6,7 +5,7 @@ export interface uiState {
     setIsActivePriceModal: (mode: boolean) => void;
 }
 
-export const uiPriceModalStore = create<uiState>()((set, get) => ({
+export const uiPriceModalStore = create<uiState>()((set) => ({
 
     isActivePriceModal: false,
     setIsActivePriceModal: (mode: boolean) => set({ isActivePriceModal: mode }),

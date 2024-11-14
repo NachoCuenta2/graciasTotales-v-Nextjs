@@ -1,4 +1,3 @@
-import { UserEntities } from "@/core/entities/user-entities";
 import { create } from "zustand";
 
 export interface uiState {
@@ -8,7 +7,7 @@ export interface uiState {
     setIsActiveMessage: (mode: boolean) => void;
 }
 
-export const uiMessageStore = create<uiState>()((set, get) => ({
+export const uiMessageStore = create<uiState>()((set) => ({
     message: '',
     isActiveMessage: false,
     setMessage: (message: string) => set({ message }),

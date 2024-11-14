@@ -11,7 +11,7 @@ export const ProductImageSelecter = ({ image }: Props) => {
         <>
             <div className='h-[50%] sm:h-[70%]  flex justify-center'>
                 <Image
-                    src={`/products/${imageSelected}`}
+                    src={imageSelected}
                     alt='Product image'
                     width={500}
                     className='min-w-[50px] sm:max-h-[100%] rounded relative'
@@ -23,7 +23,7 @@ export const ProductImageSelecter = ({ image }: Props) => {
                     {image.map((i) =>
                         <Image
                             onMouseEnter={() => setimageSelected(i)}
-                            src={`/products/${i}`}
+                            src={i}
                             alt='Product image'
                             width={100}
                             className='object-fill rounded relative w-[80] h-auto sm:w-[80]'

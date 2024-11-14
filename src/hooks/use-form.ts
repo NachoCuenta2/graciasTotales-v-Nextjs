@@ -17,17 +17,11 @@ interface UseFormReturn extends FormState {
     isFormValid: boolean;
 }
 
-// Inicializar el estado del formulario
-const formdata: FormState = {
-    displayName: '',
-    Email: '',
-    Contraseña: '',
-};
+
 
 export const UseForm = (
     initialForm: FormState,
-    formValidations: { [key in FormKeys]?: [Function, string] } = {} // Usar el tipo de clave
-): UseFormReturn => {
+    formValidations: { [key in FormKeys]?: [(value: string) => boolean, string] } = {}): UseFormReturn => {
     const [formState, setFormState] = useState<FormState>(initialForm);
     const [formValidation, setFormValidation] = useState<{ [key: string]: string | null }>({});
 

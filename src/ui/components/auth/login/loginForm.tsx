@@ -16,12 +16,15 @@ export const LoginForm = () => {
 
     return (
         <>
+            {/* background: rgba(51, 51, 51, 0.4);
+        backdrop-filter: blur(5px); */}
             <input
                 type="text"
                 placeholder="Email@google.com"
-                className="text-xs sm:text-lg w-full bg-customGray border border-white rounded sm shadow-[0_4px_10px_#333] text-white placeholder-gray-300 pl-2"
-                style={{ height: '50px' }}
+                className="text-xs sm:text-lg w-full  border border-white rounded sm shadow-[0_4px_10px_#333] text-white placeholder-gray-300 pl-2"
+                style={{ height: '50px', background: 'rgba(51,51,51,0.4)', backdropFilter: 'blur(5px) ' }}
                 name='Email'
+                autoComplete={'false'}
                 value={Email}
                 onChange={OnInputchange}
             />
@@ -29,7 +32,7 @@ export const LoginForm = () => {
                 type="password"
                 placeholder="Contraseña"
                 className="text-xs sm:text-lg w-full bg-customGray border border-white rounded sm shadow-[0_4px_10px_#333] text-white placeholder-gray-300 pl-2"
-                style={{ height: '50px', marginTop: '20px' }}
+                style={{ height: '50px', marginTop: '20px', background: 'rgba(51,51,51,0.4)', backdropFilter: 'blur(5px) ' }}
                 name='Contraseña'
                 value={Contraseña}
                 onChange={OnInputchange}

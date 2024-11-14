@@ -13,49 +13,35 @@ interface Props {
 }
 export const PrizesSlider = ({ product }: Props) => {
     return (
-        <div className='flex flex-col mt-[35px] md:mt-[70] justify-center items-center min-h-screen'>
-
-
-            <div className="flex h-[500px] md:h-[620px] w-[80%] justify-center">
+        <div className="flex flex-col md:mt-[0] justify-start items-center overflow-hidden rounded-lg ">
+            <div className="flex mt-[70px] w-full sm:w-[45%]  justify-start rounded-lg">
                 <Swiper
                     spaceBetween={30}
-                    breakpoints={{
-
-                        640: {
-                            slidesPerView: 1,
-                        }
-
-
-                    }}
-                    pagination={{
-                        clickable: true,
-                    }}
+                    slidesPerView={'auto'}
+                    pagination={{ clickable: true }}
                     modules={[Pagination]}
 
                 >
-                    {product.map((p) =>
-
+                    {product.map((p) => (
                         <SwiperSlide key={p.id}>
-                            <div className="flex flex-col w-[100%] h-[450] md:h-[700px] items-center">
+                            <div className="flex flex-col w-full h-[650px] relative rounded-lg">
                                 <Image
-                                    src={`/products/${p.Imagenes[0]}`}
+                                    src={`${p.Imagenes[0]}`}
                                     alt='Product image'
-                                    width={500}
-                                    height={500}
-                                    className='h-[350px] md:h-[500px] w-full lg:w-[600px]'
+                                    width={4096}
+                                    height={2160}
+                                    className='rounded-lg max-h-[504px] object-fit'
                                 />
-                                <div className='flex flex-col self-center w-full lg:w-[600px]'>
-
-                                    <p><span className='font-bold'>Producto</span>: {p.titulo}</p>
-                                    <p><span className='font-bold'>Reclamado</span>: {p.reclamado ? 'Si' : 'No'}</p>
+                                <div className='flex flex-col self-center w-full lg:w-[600px] mt-4'>
+                                    <p><span className='font-bold text-black'>Producto</span>: {p.titulo}</p>
+                                    <p><span className='font-bold text-black'>Reclamado</span>: {p.reclamado ? 'Si' : 'No'}</p>
                                 </div>
-                                <div className="f-width flex justify-center">
-                                    <button className='absolute -sm:bottom-0  p-2 border rounded-lg mb-[45px]'>Ver comprobante</button>
+                                <div className="w-full flex justify-center mt-4">
+                                    <button className='p-2 border rounded-lg mb-4'>Ver comprobante</button>
                                 </div>
                             </div>
                         </SwiperSlide>
-                    )}
-
+                    ))}
                 </Swiper>
             </div>
         </div>

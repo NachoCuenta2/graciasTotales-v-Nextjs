@@ -1,4 +1,3 @@
-import { UserEntities } from "@/core/entities/user-entities";
 import { create } from "zustand";
 
 export interface uiState {
@@ -7,7 +6,7 @@ export interface uiState {
 
 }
 
-export const SideBarStore = create<uiState>()((set, get) => ({
+export const SideBarStore = create<uiState>()((set) => ({
     IsOpenSideBar: false,
     setSideBarMode: (mode: boolean) => set({ IsOpenSideBar: mode }),
 }));

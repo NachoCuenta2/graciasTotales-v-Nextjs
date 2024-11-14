@@ -7,15 +7,17 @@
     height: 100vh;
 }
 
-.title h1 {
+.title h3 {
     font-size: 40px;
+    color: black
 }
 
 .containerBoxAdmin {
     position: absolute;
-    top: 150px;
+    top: 100px;
     color: white;
-    background-color: #333333;
+    background: rgba(51, 51, 51, 0.4);
+    backdrop-filter: blur(5px);
     border-radius: 2%;
     overflow: auto;
     display: flex;
@@ -39,24 +41,25 @@
 
 .generateQRDos {
     width: 70%;
-    /* Ajusta el ancho según tus necesidades */
-
-    /* Máximo ancho para mantener la responsividad */
+    background: rgba(51, 51, 51, 0.4);
     box-shadow: 0 4px 8px rgba(184, 184, 184, 0.5);
     margin-top: 20px;
     text-align: left;
     height: 150px;
     border-radius: 5%;
     font-size: 16px;
-    /* Ajusta el tamaño de fuente */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    /* Añadir relleno para hacer el botón más grande */
     transition: all 0.3s ease;
-    /* Añadir una transición para mejorar la UI */
+    color: black
 }
+
+.generateQRDos:hover {
+    color: white
+}
+
 
 .generateQRDos i {
     margin-right: 8px;

@@ -1,8 +1,6 @@
 
 
-import { AxiosAdapter } from "@/config/adapter/http/axios.adapter";
 import { HttpAdapter } from "@/config/adapter/http/http.adapter";
-import { AllUserCanjes, Busqueda } from "@/infraestructure/interfaces/canjes-response";
 import { ApiResponse } from '../../../infraestructure/interfaces/api-response';
 
 export const StartAlterCanjeWithId = async (id: string, fetcher: HttpAdapter): Promise<ApiResponse> => {

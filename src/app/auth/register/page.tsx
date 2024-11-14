@@ -1,8 +1,7 @@
 import Link from "next/link";
 import 'animate.css';
-import { RegisterButton } from "@/ui/components/auth";
 import { RegisterForm } from "@/ui/components/auth/register/registerForm";
-export default function () {
+export default function RegisterPage() {
 
 
     return (

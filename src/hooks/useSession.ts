@@ -1,3 +1,5 @@
+import { GraciasTotalesFetcher } from "@/config/gracias-totales-fetcher";
+import { GetPointsUserByuid } from "@/core/uses-cases/points/get-points-by-uid";
 import { FireBaseAuth } from "@/firebase/config";
 import { LogInWithEmailPassword, RegisterWithEmailPassword, signWithGoogle } from "@/firebase/providers";
 import { ApiResponse } from "@/infraestructure/interfaces/api-response"
@@ -5,27 +7,21 @@ import { authStore } from "@/store/auth/auth-store";
 import { onAuthStateChanged } from "firebase/auth";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import { UseUser } from "./useUser";
+import { AddUserToFirebase } from "@/core/uses-cases/user/add-user-to-firebase";
 
 export const UseSession = () => {
 
-    //Esta es toda la informacion del authStore.
-    //La traigo acá para devolverla y que no se tenga que estar haciendo el llamado al store en todos lados.
 
-    const status = authStore(state => state.status)
-    const user = authStore(state => state.user)
-    const ErrorMessage = authStore(state => state.ErrorMessage)
-    const points = authStore(state => state.points)
-    const mode = authStore(state => state.mode)
-    const canjes = authStore(state => state.canjes)
-    const setStatus = authStore(state => state.setStatus)
-    //Estos son los metodos del authStore, tambien los traigo acá para no llamarlo en todos lados.
 
-    const unlogue = authStore(state => state.unlogue)
-    const setLogged = authStore(state => state.setLogged)
+    const { setLogged, status, user,
+        ErrorMessage, points, mode, canjes, unlogue } = authStore()
+    const { GetUserPoints } = UseUser()
+
 
     //Estados propios del hook
 
-    const [loading, setLoading] = useState(false)
+    const [loading] = useState(false)
 
     //Metodos propios del hook.
 
@@ -114,13 +110,13 @@ export const UseSession = () => {
         }
     }
 
-    const checkStatus = () => {
-
+    const checkStatus = async () => {
         onAuthStateChanged(FireBaseAuth, async (user) => {
             if (!user) {
                 unlogue();
                 redirect('/auth/login');
             }
+            GetUserPoints(user.uid)
             let modo: 'Cliente' | 'Admin' = 'Cliente';
             if (user.email === 'nachotizii988@gmail.com') {
                 modo = 'Admin';
@@ -130,7 +126,7 @@ export const UseSession = () => {
                 displayName: user.displayName ?? 'No displayName',
                 email: user.email!,
             }, modo)
-
+            AddUserToFirebase(user.uid, user.displayName ?? 'No displayName');
         })
 
         return { status };
@@ -154,6 +150,11 @@ export const UseSession = () => {
 
     }
 
+    const getUserPoints = async (uid: string): Promise<ApiResponse> => {
+        const resp = await GetPointsUserByuid(uid, GraciasTotalesFetcher);
+        return resp;
+    }
+
     return {
         status,
         user,
@@ -168,6 +169,8 @@ export const UseSession = () => {
         startLogInWithGoogle,
         startLogInWithCredentials,
         checkStatus,
-        startlogOut
+        startlogOut,
+        getUserPoints
+
     }
 }

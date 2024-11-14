@@ -1,5 +1,6 @@
 
 import { BoxPoints } from "@/component/points/boxPoints";
+import { VerificationModeComponent } from "@/component/verificationModeComponent";
 import { Metadata } from "next";
 
 
@@ -8,9 +9,12 @@ export const metadata: Metadata = {
     description: 'Pagina de generacion de codigos canjeables por puntos'
 };
 
-export default function () {
+export default function GenerateCodePage() {
 
     return (
-        <BoxPoints />
+        <VerificationModeComponent showAlert={true}>
+
+            <BoxPoints />
+        </VerificationModeComponent>
     );
 };

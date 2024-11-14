@@ -2,11 +2,12 @@ import { GraciasTotalesFetcher } from "@/config/gracias-totales-fetcher";
 import { GetPointsUserByuid } from "@/core/uses-cases/points/get-points-by-uid";
 import { FireBaseDB } from "@/firebase/config";
 import { ApiResponse } from "@/infraestructure/interfaces/api-response";
+import { authStore } from "@/store/auth/auth-store";
 import { collection, getDocs } from "firebase/firestore";
 import { useState } from "react";
 
 export const UseUser = () => {
-    const [UserPoints, setUserPoints] = useState(0);
+    const { setPoints, points } = authStore()
     const [userList, setuserList] = useState<{ displayName: string; uid: string; }[]>([])
 
     const getUserList = async () => {
@@ -22,8 +23,7 @@ export const UseUser = () => {
     const GetUserPoints = async (uid: string): Promise<ApiResponse> => {
         const resp = await GetPointsUserByuid(uid, GraciasTotalesFetcher);
         if (resp.ok) {
-            setUserPoints(resp.data as number);
-            console.log(resp)
+            setPoints(resp.data as number)
             return {
                 ok: true,
             };
@@ -35,8 +35,10 @@ export const UseUser = () => {
         }
     }
 
+
+
     return {
-        UserPoints,
+        points,
         userList,
         //methods
 
