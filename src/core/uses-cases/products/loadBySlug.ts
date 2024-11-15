@@ -1,11 +1,13 @@
 
 import { ProductsEntities } from "@/core/entities/products-entites";
-import { FireBaseDB } from "@/firebase/config";
+import { FireBaseApp } from "@/firebase/config";
 import { ApiResponse } from "@/infraestructure/interfaces/api-response";
-import { collection, getDocs, query, where } from "firebase/firestore";
 
 export const getProductBySlug = async (slug: string): Promise<ApiResponse<ProductsEntities | null>> => {
     try {
+        const { getFirestore, collection, getDocs, query, where } = await import("firebase/firestore");
+        const FireBaseDB = getFirestore(FireBaseApp);
+
         const collectionRef = collection(FireBaseDB, 'productos');
         const q = query(collectionRef, where("slug", "==", slug));
         const docs = await getDocs(q);

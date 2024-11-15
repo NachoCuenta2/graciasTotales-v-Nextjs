@@ -11,16 +11,20 @@ import { getCookie } from "cookies-next";
 export const ClientTopNavbar = () => {
     const { IsOpenSideBar, setSideBarMode } = SideBarStore();
     const { user, mode, points } = authStore()
-    const [pointsUser, setPointsUser] = useState(points);
+    const [pointsUser, setPointsUser] = useState(0);
     useEffect(() => {
         getCookiePoints()
     }, [user])
 
     const getCookiePoints = async () => {
-        const pointsCookie = getCookie('points');
+        const pointsCookie = await getCookie('points');
         if (!pointsCookie) return;
         setPointsUser(+pointsCookie);
     }
+    useEffect(() => {
+        setPointsUser(points)
+    }, [points])
+
     return (
         <nav className={`fixed top-0 left-0 right-0 px-5 flex flex-col  w-full bg-customGray h-[60px] justify-center z-10 ${styles.navbar}`}>
 
@@ -28,7 +32,7 @@ export const ClientTopNavbar = () => {
                 <NavbarButton icon={<IoMenuOutline />} colorDeFondo='#333' url='#' />
             </div>
             <div className='hidden md:flex self-start absolute'>
-                <NavbarButton text={`${mode === 'Admin' ? 'Admin' : `${user?.displayName}: ${points} Puntos`}`} style='w-[250px] mr-0 sm:mr-10' icon={<IoPersonOutline />} url='/' />
+                <NavbarButton text={`${mode === 'Admin' ? 'Admin' : `${user?.displayName}: ${pointsUser} Puntos`}`} style='w-[250px] mr-0 sm:mr-10' icon={<IoPersonOutline />} url='/' />
             </div>
             {
                 mode === 'Cliente' &&

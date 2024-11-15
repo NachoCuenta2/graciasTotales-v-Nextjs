@@ -6,7 +6,6 @@ import { ApiResponse } from "@/infraestructure/interfaces/api-response";
 import { ClaimProduct } from "@/core/uses-cases/canjes/claim-product";
 import { GraciasTotalesFetcher } from "@/config/gracias-totales-fetcher";
 import { startPutPoints } from "@/core/uses-cases/points/put-points";
-import { getCookie } from "cookies-next";
 import { Puntos } from "@/infraestructure/interfaces/points-response";
 import { SetVisibleProduct } from "@/core/uses-cases/products/set-visible-product";
 
@@ -24,7 +23,7 @@ export const DeleteOrClaimButton = ({ id, valorDeProducto, tituloProducto, dispo
         if (!user) return { ok: false };
         const points: Puntos = {
             cantidad: valorDeProducto.toString(),
-            codigo: 'abc',
+            codigo: variableParaCumplirRequisitos ? variableParaCumplirRequisitos : 'abc', //este codigo no es necesario para el backend al quitar puntos
             id: user.uid
         }
         let resp = await startPutPoints(GraciasTotalesFetcher, points, 'resta')

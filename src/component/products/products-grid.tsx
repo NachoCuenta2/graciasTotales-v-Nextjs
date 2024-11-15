@@ -1,5 +1,4 @@
 import { ProductsEntities } from "@/core/entities/products-entites"
-import { ProductItem } from "../product/product-item"
 import { ClaimPriceModal } from "../modal/claim-price-modal";
 import { FilterProductComponentByMode } from "../filterProductComponentByMode";
 
@@ -33,6 +32,7 @@ export const ProductsGrid = ({ products, ClaimPrizes }: Props) => {
                                                                         -que los clientes no vean los productos no disponibles */}
             {ClaimPrizes
                 ?
+                // aca lo unico que hacemos es mandar parametros o no al archivo segun los searchParams que mencione al principio, para ya tener por defecto seleccionada una opcion
                 <ClaimPriceModal isOpen={true} PrizesToClaim={opcion} />
                 :
                 <ClaimPriceModal />

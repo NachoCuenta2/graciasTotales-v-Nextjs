@@ -3,6 +3,7 @@
 import { UseSession } from "@/hooks/useSession"
 import { useUiAuth } from "@/hooks/use-ui-auth";
 import { redirect } from "next/navigation";
+import { TranslateErrorMessage } from "@/helper/translateErrorMessage";
 
 
 interface Props {
@@ -21,7 +22,8 @@ export const LoginButton = ({ email, password }: Props) => {
             redirect('/')
         } else {
             setIsActiveMessage(true);
-            setMessage('Ocurrio un error, por favor, vuelva a intentarlo más tarde')
+            const msg = TranslateErrorMessage(resp.msg as string);
+            setMessage(msg ? msg : 'Ocurrio un error, por favor, vuelva a intentarlo más tarde')
         }
     }
     return (

@@ -23,7 +23,7 @@ export const FilterProductComponentByMode = ({ products }: Props) => {
             });
             setProductos(listaOrdenada);
         }
-    }, [products])
+    }, [products, mode])
 
 
     return (

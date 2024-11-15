@@ -1,9 +1,8 @@
 import { GraciasTotalesFetcher } from "@/config/gracias-totales-fetcher";
 import { GetPointsUserByuid } from "@/core/uses-cases/points/get-points-by-uid";
-import { FireBaseDB } from "@/firebase/config";
+import { FireBaseApp } from "@/firebase/config";
 import { ApiResponse } from "@/infraestructure/interfaces/api-response";
 import { authStore } from "@/store/auth/auth-store";
-import { collection, getDocs } from "firebase/firestore";
 import { useState } from "react";
 
 export const UseUser = () => {
@@ -11,6 +10,8 @@ export const UseUser = () => {
     const [userList, setuserList] = useState<{ displayName: string; uid: string; }[]>([])
 
     const getUserList = async () => {
+        const { collection, getDocs, getFirestore } = await import('firebase/firestore');
+        const FireBaseDB = getFirestore(FireBaseApp)
         const collectionRef = collection(FireBaseDB, `/usuarios`);
         const docs = await getDocs(collectionRef);
         const notes: { displayName: string, uid: string }[] = [];

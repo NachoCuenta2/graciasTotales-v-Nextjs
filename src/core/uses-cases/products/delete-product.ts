@@ -1,13 +1,14 @@
 
-import { FireBaseDB } from "@/firebase/config";
+import { FireBaseApp } from '@/firebase/config';
 import { ApiResponse } from "@/infraestructure/interfaces/api-response";
-import { doc, updateDoc } from "firebase/firestore";
 
 
 export const DeleteProduct = async (id: string): Promise<ApiResponse> => {
 
 
     try {
+        const { getFirestore, doc, updateDoc } = await import("firebase/firestore");
+        const FireBaseDB = getFirestore(FireBaseApp);
         const docRef = doc(FireBaseDB, `/productos/${id}`);
         await updateDoc(docRef, {
             disponible: false

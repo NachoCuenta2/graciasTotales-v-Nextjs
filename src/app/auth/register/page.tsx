@@ -9,6 +9,7 @@ export default function RegisterPage() {
             <h3 className="absolute top-6 text-3xl">Crear cuenta</h3>
             <RegisterForm />
 
+
             <div className="absolute right-0 bottom-0"><span>¿Ya tienes cuenta? </span><Link href='/auth/login'>
                 Inicia aquí.
             </Link>

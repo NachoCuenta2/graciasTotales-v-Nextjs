@@ -3,9 +3,9 @@ import { useDebouncer } from '@/helper/debouncer'
 import styles from '@/styles/queryPage.module.css'
 import { useEffect, useState } from 'react';
 import 'animate.css';
-import { UseCanjes } from '@/hooks/useCanjes';
 import { UseUser } from '@/hooks/useUser';
 import { CanjeProductInQueryBox } from './canjeProductInQueryBox';
+import { UseUserCanjes } from '@/hooks/useUserCanjes';
 
 
 
@@ -19,7 +19,7 @@ export const QueryBox = () => {
         init()
     }, [])
 
-    const { onGetCanjesByUid, userCanjes } = UseCanjes();
+    const { onGetCanjesByUid, userCanjes } = UseUserCanjes();
 
     //Controla la apertura/cierre de la caja negra
     const [open, setOpen] = useState(false)

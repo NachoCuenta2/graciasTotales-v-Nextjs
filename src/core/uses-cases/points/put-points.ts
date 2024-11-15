@@ -1,5 +1,6 @@
 import { HttpAdapter } from "@/config/adapter/http/http.adapter";
 import { Puntos } from "@/infraestructure/interfaces/points-response";
+import { setCookie } from "cookies-next";
 
 
 
@@ -9,6 +10,8 @@ export const startPutPoints = async (fetcher: HttpAdapter, body: Puntos, tipo: s
 
     try {
         const resp = await fetcher.put<{ ok: boolean, cantidad: number }>('/puntosUsuarios/cargar', { ...body, tipo, uid: body.id });
+        setCookie('points', resp.cantidad, { path: '/' });
+
         return {
             ok: true,
             cantidad: resp.cantidad

@@ -1,8 +1,12 @@
 "use client"
 
-import { UsePoints } from "@/hooks/use-points";
+import { GraciasTotalesFetcher } from "@/config/gracias-totales-fetcher";
+import { startPutPoints } from "@/core/uses-cases/points/put-points";
+import { Puntos } from "@/infraestructure/interfaces/points-response";
+import { authStore } from "@/store/auth/auth-store";
 import { ToastMessageStore } from "@/store/toastMessage/toastMessageStore";
 import { uiPriceModalStore } from "@/store/ui/modal/ClaimPriceModal"
+import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 import { PropagateLoader } from "react-spinners";
 
@@ -12,17 +16,24 @@ interface Props {
 }
 
 export const ClaimPriceModal = ({ isOpen, PrizesToClaim }: Props) => {
-    const { isActivePriceModal, setIsActivePriceModal } = uiPriceModalStore()
-    const { toogleToastMode } = ToastMessageStore();
-    const { putPoints } = UsePoints();
 
-    const [selectedOption, setSelectedOption] = useState("opcion1");
-    const [code, setCode] = useState('')
+
+    const { isActivePriceModal, setIsActivePriceModal } = uiPriceModalStore() //estado del modal
+
+    const { toogleToastMode } = ToastMessageStore(); //Control del Toast
+    const { setPoints } = authStore() // Los puntos que maneja el store, sirve manejarlo por store (ademas de la cookie) por que al cambiarlo activa el useefect del navbar
+
+
+    const [selectedOption, setSelectedOption] = useState("opcion1"); //estado del desplegable
+    const [code, setCode] = useState('') //Texto del formulario
     const [loading, setLoading] = useState(false);
 
+
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedOption(event.target.value);
+        setSelectedOption(event.target.value); //manejo del desplegable
     };
+
+    //Inicio de codigo para animacion
     const [efecto, setEfecto] = useState(true)
     const cambiar = () => {
         setEfecto(false)
@@ -40,23 +51,30 @@ export const ClaimPriceModal = ({ isOpen, PrizesToClaim }: Props) => {
             }, 100);
         }
     }, [])
-    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    //Fin de codigo para animacion
+
 
     const confirm = async () => {
 
-        toogleToastMode(false, '')
+        toogleToastMode(false, '') //Se desactiva notificacion y se pone a cargar
         setLoading(true);
-        await sleep(1500);
-        const valueSelected = selectedOption.split('n');
+
+        const valueSelected = selectedOption.split('n'); //El texto es 'Opcion1' si haces el split queda solo el numero listo para la op matematica
         if (valueSelected[1] === '0') return;
         if (valueSelected[1] === '5') {
             console.log('Only sort');
             return;
         }
         const value: number = (100 - (+valueSelected[1] * 20)) + 20; //valueSelected[1] = 1|2|3|4
-
-        const resp = await putPoints(value, 'suma', code, 'abc'); //FALTA EL UID DEL COOKIE
+        const pointsCookie = await getCookie('uid');
+        const body: Puntos = {
+            cantidad: `${value}`,
+            codigo: code,
+            id: pointsCookie?.toString()
+        }
+        const resp = await startPutPoints(GraciasTotalesFetcher, body, 'suma');
         if (resp.ok) {
+            setPoints(resp.cantidad as number);
             toogleToastMode(true, 'Puntos canjeados exitosamente!')
         } else {
             toogleToastMode(true, resp.msg ? resp.msg : 'Ocurrio un eror, por favor vuelve a intentarlo más tarde')

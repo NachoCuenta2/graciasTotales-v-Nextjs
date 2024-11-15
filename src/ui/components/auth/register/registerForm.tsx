@@ -2,6 +2,7 @@
 
 import { UseForm } from "@/hooks/use-form"
 import { RegisterButton } from "./registerButton"
+import { Message } from "../login";
 
 
 const formdata = {
@@ -42,6 +43,7 @@ export const RegisterForm = () => {
                 value={Contraseña}
                 onChange={OnInputchange}
             />
+            <Message />
             <div className="flex w-full justify-center gap-5 mt-5">
                 <RegisterButton email={Email} displayName={displayName} password={Contraseña} />
             </div>

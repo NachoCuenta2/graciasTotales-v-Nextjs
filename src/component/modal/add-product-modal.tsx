@@ -12,9 +12,9 @@ import { FormEvent, useEffect, useRef, useState } from "react"
 import Image from "next/image";
 import './styles.css';
 import { IoCloseOutline } from 'react-icons/io5';
-import { UseProducts } from '@/hooks/use-products';
 import { ToastMessageStore } from '@/store/toastMessage/toastMessageStore';
 import { useRouter } from 'next/navigation';
+import { UploadProduct } from '@/core/uses-cases/products/upload-product';
 
 
 interface formState {
@@ -33,7 +33,6 @@ export const AddProductModal = ({ ProductsTitle }: Props) => {
 
     const [loading, setLoading] = useState(false)
     const { toogleToastMode } = ToastMessageStore();
-    const { startUploadProduct } = UseProducts();
     const [efecto, setEfecto] = useState(true)
     const cambiar = () => {
         setEfecto(false)
@@ -78,16 +77,21 @@ export const AddProductModal = ({ ProductsTitle }: Props) => {
             toogleToastMode(true, 'Ya existe un producto con este mismo titulo, por favor modifiquelo. ');
             return;
         }
-        await startUploadProduct(formState, Imagenes);
+        const resp = await UploadProduct(formState, Imagenes);
         setLoading(false)
-        toogleToastMode(true, 'Producto subido correctamente!');
-        setFormState({
-            Titulo: '',
-            Descripcion: '',
-            Valor: ''
-        })
-        setImagenes([])
-        router.refresh();
+        if (resp.ok) {
+
+            toogleToastMode(true, 'Producto subido correctamente!');
+            setFormState({
+                Titulo: '',
+                Descripcion: '',
+                Valor: ''
+            })
+            setImagenes([])
+            router.refresh();
+        } else {
+            toogleToastMode(true, 'Ha ocurrido un error al intentar subir el producto, por favor intentelo nuevamente más tarde');
+        }
     }
     const deleteImage = (image: File) => {
         const imageList = [...Imagenes].filter(i => i !== image);

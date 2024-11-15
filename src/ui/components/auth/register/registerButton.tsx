@@ -3,6 +3,7 @@
 import { UseSession } from "@/hooks/useSession"
 import { useUiAuth } from "@/hooks/use-ui-auth";
 import { redirect } from "next/navigation";
+import { TranslateErrorMessage } from "@/helper/translateErrorMessage";
 
 
 interface Props {
@@ -15,13 +16,20 @@ export const RegisterButton = ({ email, displayName, password }: Props) => {
     const { startRegisterWithCredentials } = UseSession();
     const { setIsActiveMessage, setMessage } = useUiAuth();
     const OnRegister = async () => {
-        const resp = await startRegisterWithCredentials(email, displayName, password);
-        if (resp.ok) {
+        if (displayName === '') {
             setIsActiveMessage(true);
-            redirect('/dashboard/home')
+            setMessage('Para continuar, por favor, ingrese un nombre de usuario');
+            return;
+        }
+        const resp = await startRegisterWithCredentials(email, displayName, password);
+        const msg = TranslateErrorMessage(resp.msg as string)
+        if (resp.ok) {
+            setIsActiveMessage(false);
+            redirect('/')
         } else {
             setIsActiveMessage(true);
-            setMessage('Ocurrio un error, por favor, vuelva a intentarlo más tarde')
+
+            setMessage(msg ? msg : 'Ocurrio un error, por favor, vuelva a intentarlo más tarde')
         }
     }
     return (

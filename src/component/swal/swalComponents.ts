@@ -2,7 +2,6 @@ import Swal from "sweetalert2";
 import { ApiResponse } from '../../infraestructure/interfaces/api-response';
 import { CreateRedeemablePoints } from "@/core/uses-cases/points/create-new-redeemable-point";
 import { GraciasTotalesFetcher } from "@/config/gracias-totales-fetcher";
-import { useRouter } from "next/navigation";
 
 
 const swalWithBootstrapButtons = Swal.mixin({
@@ -25,7 +24,7 @@ interface SwalWithActionProps {
     iconSecondError: 'error' | 'info' | 'question' | 'success' | 'warning';
     reload?: boolean
 }
-export const SwalComponentWithAction = async ({ action, title, text, icon, secondTitleOk, secondTextOk, iconSecondOk, secondTitleError, secondTextError, iconSecondError, reload }: SwalWithActionProps) => {
+export const SwalComponentWithAction = async ({ action, title, text, icon, secondTitleOk, secondTextOk, iconSecondOk, secondTitleError, secondTextError, iconSecondError }: SwalWithActionProps) => {
 
     swalWithBootstrapButtons.fire({
         title: title,

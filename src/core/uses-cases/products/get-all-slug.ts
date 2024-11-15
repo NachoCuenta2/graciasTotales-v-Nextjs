@@ -1,11 +1,12 @@
 
-import { FireBaseDB } from "@/firebase/config";
+import { FireBaseApp } from "@/firebase/config";
 import { ApiResponse } from "@/infraestructure/interfaces/api-response";
-import { collection, getDocs } from "firebase/firestore";
 
 
 export const GetAllSlug = async (): Promise<ApiResponse<{ slug: string }[]>> => {
     try {
+        const { getFirestore, getDocs, collection } = await import("firebase/firestore");
+        const FireBaseDB = getFirestore(FireBaseApp);
         const collectionRef = collection(FireBaseDB, 'productos');
         const docs = await getDocs(collectionRef);
 

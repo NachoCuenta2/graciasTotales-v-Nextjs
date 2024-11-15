@@ -2,20 +2,21 @@ import React, { useState } from 'react'
 import { Busqueda } from '../../infraestructure/interfaces/canjes-response';
 import styles from './canjeProductInQueryBox.module.css'
 import { SwalComponentWithAction } from '../swal/swalComponents';
-import { UseCanjes } from '@/hooks/useCanjes';
 import { ApiResponse } from '@/infraestructure/interfaces/api-response';
+import { GraciasTotalesFetcher } from '@/config/gracias-totales-fetcher';
+import { StartAlterCanjeWithId } from '@/core/uses-cases/canjes/Start-alter-canje-with-Id';
 interface Props {
     producto: Busqueda;
 }
 export const CanjeProductInQueryBox = ({ producto }: Props) => {
-    const { AlterStateCanje } = UseCanjes();
+
     const [Claimed, setClaimed] = useState<boolean>(producto.reclamado)
 
 
     //este metodo es para cumplir con los requerimientos de los parametros de SwalComponentWithAction que espera => Promise<ApiResponse>;
     //Asi además, manejamos el estado del producto en un estado local
     const toogleClaimed = async (id: string): Promise<ApiResponse> => {
-        const resp = await AlterStateCanje(id)
+        const resp = await StartAlterCanjeWithId(id, GraciasTotalesFetcher);
         if (resp.ok) {
             setClaimed(true);
             return {

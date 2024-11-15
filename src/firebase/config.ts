@@ -1,8 +1,6 @@
 // firebase/config.ts
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from 'firebase/firestore';
-console.log(process.env.APIKEY)
+
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_APIKEY,
     authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
@@ -12,6 +10,5 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_APPID,
 };
 
+// Inicializamos solo la app
 export const FireBaseApp = initializeApp(firebaseConfig);
-export const FireBaseAuth = getAuth(FireBaseApp);
-export const FireBaseDB = getFirestore(FireBaseApp);

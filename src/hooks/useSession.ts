@@ -1,6 +1,6 @@
 import { GraciasTotalesFetcher } from "@/config/gracias-totales-fetcher";
 import { GetPointsUserByuid } from "@/core/uses-cases/points/get-points-by-uid";
-import { FireBaseAuth } from "@/firebase/config";
+import { FireBaseApp } from "@/firebase/config";
 import { LogInWithEmailPassword, RegisterWithEmailPassword, signWithGoogle } from "@/firebase/providers";
 import { ApiResponse } from "@/infraestructure/interfaces/api-response"
 import { authStore } from "@/store/auth/auth-store";
@@ -56,6 +56,7 @@ export const UseSession = () => {
     const startRegisterWithCredentials = async (email: string, displayName: string, password: string): Promise<ApiResponse> => {
         try {
             const resp = await RegisterWithEmailPassword(email, password, displayName);
+            console.log('respppp', resp)
             if (resp.ok) {
                 let modo: 'Cliente' | 'Admin' = 'Cliente';
                 if (resp.data?.email === 'nachotizii988@gmail.com') {
@@ -63,19 +64,20 @@ export const UseSession = () => {
                 }
                 setLogged(resp.data!, modo)
                 return {
-                    ok: true
+                    ok: true,
+                    msg: resp.msg
                 }
             } else {
                 return {
                     ok: false,
-                    msg: 'Ha ocurrido un error intentando registrarse, por favor vuelva a intentarlo más tarde.'
+                    msg: resp.msg
                 }
             }
-        } catch (error) {
-            console.log(error);
+        } catch (error: unknown) {
+            console.log('hola', error);
             return {
                 ok: false,
-                msg: 'Ha ocurrido un error intentando registrarse, por favor vuelva a intentarlo más tarde.'
+                msg: `${error}`
             }
         }
     }
@@ -99,7 +101,7 @@ export const UseSession = () => {
             unlogue('Ocurrio un error al intentar logearse, por favor intentelo denuevo más tarde. ')
             return {
                 ok: false,
-
+                msg: data.msg
             }
         } catch (error) {
             console.log(error)
@@ -111,6 +113,8 @@ export const UseSession = () => {
     }
 
     const checkStatus = async () => {
+        const { getAuth } = await import("firebase/auth");
+        const FireBaseAuth = getAuth(FireBaseApp);
         onAuthStateChanged(FireBaseAuth, async (user) => {
             if (!user) {
                 unlogue();
@@ -118,7 +122,7 @@ export const UseSession = () => {
             }
             GetUserPoints(user.uid)
             let modo: 'Cliente' | 'Admin' = 'Cliente';
-            if (user.email === 'nachotizii988@gmail.com') {
+            if (user.email === 'nachotizii988@gmail.com' || user.email === 'admin@gmail.com') {
                 modo = 'Admin';
             }
             setLogged({
@@ -135,6 +139,8 @@ export const UseSession = () => {
 
     const startlogOut = async (): Promise<ApiResponse> => {
         try {
+            const { getAuth } = await import("firebase/auth");
+            const FireBaseAuth = getAuth(FireBaseApp);
             await FireBaseAuth.signOut();
             unlogue();
             return {
