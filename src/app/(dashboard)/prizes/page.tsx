@@ -10,8 +10,8 @@ import { cookies } from "next/headers";
 
 
 export const metadata: Metadata = {
-    title: 'Client prices Title',
-    description: ' Client pricesDescription'
+    title: 'Premios Canjeados - Vista de Premios | GraciasTotale',
+    description: ' Consulta todos los premios que han sido canjeados por tus usuarios en GraciasTotales. Mantén un registro claro de los canjes y asegura una experiencia fluida y organizada para los participantes.'
 };
 
 export default async function PrizesSliderPage() {

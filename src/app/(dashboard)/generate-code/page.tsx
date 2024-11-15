@@ -5,8 +5,8 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-    title: 'Codes generation',
-    description: 'Pagina de generacion de codigos canjeables por puntos'
+    title: 'Generador de Códigos - Crea Códigos para Usuarios | GraciasTotales',
+    description: 'Genera códigos únicos para tus usuarios en GraciasTotales y facilita su acceso a premios y sorteos. Personaliza los códigos para ofrecer promociones exclusivas y fomentar la lealtad de tus clientes.'
 };
 
 export default function GenerateCodePage() {

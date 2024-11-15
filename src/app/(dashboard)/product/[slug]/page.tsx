@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: Props) {
     const { slug } = await params;
     const product = (await getProductBySlugCached(slug));
     return {
-        title: `${slug}`,
-        description: `${product.data?.descripcion}`
+        title: `${product.data?.titulo} - GraciasTotales`,
+        description: `${product.data?.descripcion} - Obtén más detalles sobre este premio canjeable en GraciasTotales.`
     };
 }
 
