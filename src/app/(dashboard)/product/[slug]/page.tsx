@@ -1,5 +1,4 @@
 export const revalidate = 30;
-"use server"
 import { ProductImageSelecter } from '@/component/product/product-image-selecter';
 
 import { notFound } from 'next/navigation';
