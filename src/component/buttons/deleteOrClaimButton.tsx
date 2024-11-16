@@ -89,6 +89,7 @@ export const DeleteOrClaimButton = ({ id, valorDeProducto, tituloProducto, dispo
             </div>
             <button className={`btn ${points < valorDeProducto && 'bg-gray-400 text-white py-2 px-4 rounded cursor-not-allowed'}  bg-black rounded-xl px-5 py-1 text-white hover:bg-gray-900  transition-all mr-5 ${mode === 'Admin' ? 'hidden' : 'block'}`}
                 onClick={() => claimProduct()}
+                disabled={points < valorDeProducto}
             >
                 Canjear
             </button>
