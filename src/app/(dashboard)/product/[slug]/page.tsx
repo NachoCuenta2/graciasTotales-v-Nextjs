@@ -1,4 +1,4 @@
-export const revalidate = 30;
+export const revalidate = 15;
 import { ProductImageSelecter } from '@/component/product/product-image-selecter';
 
 import { notFound } from 'next/navigation';
@@ -7,6 +7,7 @@ import { GetAllSlug } from '@/core/uses-cases/products/get-all-slug';
 import { cache } from 'react';
 import { DeleteOrClaimButton } from '@/component/buttons/deleteOrClaimButton';
 import { getProductBySlug } from '@/core/uses-cases/products/loadBySlug';
+import { ValueLabel } from '@/component/product/valueLabel';
 
 
 
@@ -60,7 +61,7 @@ export default async function ProductPage({ params }: Props) {
                     <div className="pt-10" />
                     <p>{product.descripcion}</p>
                     <div className="pt-10" />
-                    <p>Valor {product.valor} puntos </p>
+                    <ValueLabel slug={slugResolved} />
                 </div>
                 <div className='flex w-full justify-center pt-4 mb-5 sm:mt-[140px]'>
                     <DeleteOrClaimButton id={product.id} valorDeProducto={product.valor} tituloProducto={product.titulo} disponible={product.disponible} />
